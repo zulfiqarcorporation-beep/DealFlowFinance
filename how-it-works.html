@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How It Works — DealFlow Finance</title>
+<style>
+  :root{
+    --cream:#F8F5EE;
+    --navy:#0E1830;
+    --navy-soft:#1B2440;
+    --amber:#E2A33F;
+    --amber-light:#F3C57A;
+    --ink:#171717;
+    --muted:#6B6F78;
+    --line:#E6E1D3;
+    --white:#FFFFFF;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{
+    font-family:-apple-system,'Helvetica Neue',Arial,sans-serif;
+    background:var(--cream);
+    color:var(--ink);
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3{
+    font-family:'Times New Roman',Georgia,serif;
+    font-weight:400;
+    line-height:1.04;
+  }
+  a{text-decoration:none;color:inherit;}
+
+  header{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:20px 32px;
+    max-width:1180px;margin:0 auto;
+  }
+  .logo{display:flex;align-items:center;gap:10px;font-weight:600;font-size:18px;}
+  .logo-mark{
+    width:30px;height:30px;border-radius:7px;
+    background:var(--navy);color:var(--white);
+    display:flex;align-items:center;justify-content:center;
+    font-family:Georgia,serif;font-weight:700;font-size:15px;
+  }
+  nav{display:flex;gap:34px;font-size:14.5px;color:var(--ink);font-weight:450;}
+  nav a:hover{color:var(--amber);}
+  nav a.active{color:var(--amber);}
+  .header-right{display:flex;align-items:center;gap:22px;font-size:14.5px;}
+  .btn-dark{
+    background:var(--navy);color:var(--white);
+    padding:11px 20px;border-radius:8px;
+    font-size:14.5px;font-weight:500;
+    display:inline-flex;align-items:center;gap:8px;
+    transition:background .2s ease;
+    border:none;cursor:pointer;
+  }
+  .btn-dark:hover{background:var(--navy-soft);}
+  .btn-light{
+    background:var(--white);color:var(--ink);
+    padding:11px 22px;border-radius:8px;
+    font-size:14.5px;font-weight:500;
+    border:1px solid var(--line);
+  }
+
+  .hero{padding:64px 32px 30px;max-width:1180px;margin:0 auto;text-align:center;}
+  .badge{
+    display:inline-flex;align-items:center;gap:8px;
+    border:1px solid var(--line);
+    background:var(--white);
+    padding:8px 16px;border-radius:999px;
+    font-size:13.5px;color:#3a3d44;
+    margin-bottom:26px;
+  }
+  .badge .dot{color:var(--amber);font-size:14px;}
+  .hero h1{
+    font-size:50px;
+    font-weight:500;
+    color:#111111;
+    letter-spacing:-0.5px;
+    max-width:740px;
+    margin:0 auto;
+  }
+  .hero h1 .accent{color:var(--amber);font-style:italic;font-weight:500;}
+  .hero p.sub{
+    margin:22px auto 0;
+    font-size:17px;
+    line-height:1.6;
+    color:var(--muted);
+    max-width:560px;
+  }
+
+  .steps{
+    max-width:900px;margin:64px auto 0;
+    padding:0 32px 80px;
+  }
+  .step{
+    display:grid;
+    grid-template-columns:auto 1fr;
+    gap:28px;
+    padding:32px 0;
+    border-top:1px solid var(--line);
+  }
+  .step:first-child{border-top:none;}
+  .step-num{
+    width:48px;height:48px;border-radius:50%;
+    background:var(--navy);color:var(--white);
+    display:flex;align-items:center;justify-content:center;
+    font-family:'Times New Roman',Georgia,serif;font-size:20px;
+    flex-shrink:0;
+  }
+  .step-content h3{
+    font-size:22px;font-weight:500;color:#111;margin-bottom:8px;
+  }
+  .step-content p{
+    font-size:15px;line-height:1.65;color:var(--muted);
+    max-width:560px;
+  }
+
+  .two-col{
+    max-width:1180px;margin:0 auto;
+    padding:0 32px 80px;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:32px;
+  }
+  .col-card{
+    background:var(--white);
+    border:1px solid var(--line);
+    border-radius:16px;
+    padding:32px;
+  }
+  .col-card .tag{
+    display:inline-block;
+    font-size:12px;letter-spacing:.08em;text-transform:uppercase;
+    color:var(--amber);font-weight:700;
+    margin-bottom:12px;
+  }
+  .col-card h3{font-size:24px;font-weight:500;color:#111;margin-bottom:14px;}
+  .col-card ul{list-style:none;}
+  .col-card li{
+    font-size:14.5px;color:var(--muted);line-height:1.6;
+    padding:8px 0 8px 24px;position:relative;
+  }
+  .col-card li::before{
+    content:"✓";position:absolute;left:0;color:var(--amber);font-weight:700;
+  }
+
+  .cta-band{
+    border-top:1px solid var(--line);
+    padding:64px 32px;
+    text-align:center;
+  }
+  .cta-band h2{
+    font-size:34px;font-weight:500;color:#111;
+    margin-bottom:14px;
+  }
+  .cta-band p{
+    font-size:15.5px;color:var(--muted);
+    margin-bottom:28px;
+  }
+  .cta-row{display:flex;gap:14px;justify-content:center;}
+
+  @media (max-width:900px){
+    nav{display:none;}
+    .hero h1{font-size:34px;}
+    .two-col{grid-template-columns:1fr;}
+    .step{grid-template-columns:1fr;gap:14px;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">
+    <div class="logo-mark">D</div>
+    DealFlow Finance
+  </div>
+  <nav>
+    <a href="how-it-works.html" class="active">How it works</a>
+    <a href="industries.html">Industries</a>
+    <a href="index.html#pricing">Pricing</a>
+    <a href="index.html#contact">Contact</a>
+  </nav>
+  <div class="header-right">
+    <a href="signin.html">Sign in</a>
+    <a href="index.html" class="btn-dark">Get started</a>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="badge"><span class="dot">✦</span> Approved in 60 seconds</div>
+  <h1>From price tag to <span class="accent">payment plan</span> in four steps.</h1>
+  <p class="sub">DealFlow Finance handles the underwriting, the risk, and the paperwork — so you can focus on closing the sale.</p>
+</section>
+
+<section class="steps">
+  <div class="step">
+    <div class="step-num">1</div>
+    <div class="step-content">
+      <h3>Customer applies at checkout</h3>
+      <p>Your customer fills out a simple application in-store or online — just a few fields, no paper forms, no waiting around.</p>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-num">2</div>
+    <div class="step-content">
+      <h3>Instant decision</h3>
+      <p>Our underwriting engine returns an approval decision and monthly payment options in about 60 seconds, right at the point of sale.</p>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-num">3</div>
+    <div class="step-content">
+      <h3>Customer picks a plan</h3>
+      <p>They choose the term that fits their budget — from a few months to multiple years — and e-sign their agreement on the spot.</p>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-num">4</div>
+    <div class="step-content">
+      <h3>You get paid, fast</h3>
+      <p>DealFlow Finance pays you the full sale amount, typically within 24 hours — while we manage collections and customer payments going forward.</p>
+    </div>
+  </div>
+</section>
+
+<section class="two-col">
+  <div class="col-card">
+    <span class="tag">For merchants</span>
+    <h3>Why partners choose DealFlow</h3>
+    <ul>
+      <li>No cost to integrate — get started free</li>
+      <li>Funded within 24 hours of approval</li>
+      <li>Dashboard to track every application</li>
+      <li>Dedicated support team</li>
+      <li>Works in-store, online, or both</li>
+    </ul>
+  </div>
+  <div class="col-card">
+    <span class="tag">For customers</span>
+    <h3>What your customers get</h3>
+    <ul>
+      <li>Transparent monthly pricing, no surprises</li>
+      <li>Flexible terms to fit any budget</li>
+      <li>Decision in under a minute</li>
+      <li>No impact to credit score to check rates</li>
+      <li>Manage payments from any device</li>
+    </ul>
+  </div>
+</section>
+
+<section class="cta-band">
+  <h2>Ready to stop losing sales to sticker shock?</h2>
+  <p>Get set up in minutes — no cost, no commitment.</p>
+  <div class="cta-row">
+    <a href="index.html" class="btn-dark">Get started →</a>
+    <a href="industries.html" class="btn-light">See industries we serve</a>
+  </div>
+</section>
+
+</body>
+</html>
