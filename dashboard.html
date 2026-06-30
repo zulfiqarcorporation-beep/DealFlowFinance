@@ -50,7 +50,7 @@
   .btn-light:hover{border-color:#c9c2ad;}
 
   main{
-    max-width:760px;margin:0 auto;
+    max-width:880px;margin:0 auto;
     padding:70px 32px 100px;
   }
   .badge{
@@ -71,9 +71,107 @@
     border-radius:14px;
     padding:26px 28px;
     box-shadow:0 18px 40px -28px rgba(16,24,43,.18);
+    margin-bottom:28px;
   }
   .card .label{font-size:12.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:6px;}
   .card .value{font-family:'Times New Roman',Georgia,serif;font-size:22px;color:var(--navy);}
+
+  .section-title{
+    font-size:24px;font-weight:500;color:#111;
+    margin-bottom:6px;
+  }
+  .section-sub{
+    font-size:14.5px;color:var(--muted);margin-bottom:22px;
+  }
+
+  .form-card{
+    background:var(--white);
+    border:1px solid var(--line);
+    border-radius:16px;
+    padding:32px;
+    margin-bottom:40px;
+  }
+  .form-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:18px;
+  }
+  .field{margin-bottom:0;}
+  .field.full{grid-column:1 / -1;}
+  .field label{
+    display:block;
+    font-size:13px;
+    font-weight:600;
+    color:var(--ink);
+    margin-bottom:7px;
+  }
+  .field input,.field select,.field textarea{
+    width:100%;
+    padding:11px 13px;
+    border:1px solid var(--line);
+    border-radius:9px;
+    background:var(--cream);
+    font-size:14.5px;
+    color:var(--ink);
+    font-family:inherit;
+    transition:border-color .2s ease, background .2s ease;
+  }
+  .field textarea{resize:vertical;min-height:70px;}
+  .field input:focus,.field select:focus,.field textarea:focus{
+    outline:none;
+    border-color:var(--amber);
+    background:var(--white);
+  }
+  .form-actions{
+    margin-top:24px;
+    display:flex;align-items:center;gap:16px;
+  }
+  .btn-submit{
+    background:var(--navy);
+    color:var(--white);
+    border:none;
+    padding:12px 26px;
+    border-radius:9px;
+    font-size:14.5px;
+    font-weight:500;
+    cursor:pointer;
+    transition:background .2s ease;
+  }
+  .btn-submit:hover{background:var(--navy-soft);}
+  .btn-submit:disabled{opacity:.6;cursor:default;}
+  #form-msg{font-size:13.5px;}
+  #form-msg.error{color:#C24A3B;}
+  #form-msg.success{color:#2E7D4F;}
+
+  .app-list{display:flex;flex-direction:column;gap:14px;}
+  .app-row{
+    background:var(--white);
+    border:1px solid var(--line);
+    border-radius:12px;
+    padding:18px 22px;
+    display:flex;align-items:center;justify-content:space-between;
+    gap:16px;
+    flex-wrap:wrap;
+  }
+  .app-row .who{font-size:15px;font-weight:600;color:#111;}
+  .app-row .meta{font-size:13px;color:var(--muted);margin-top:3px;}
+  .status-pill{
+    font-size:12px;font-weight:600;
+    padding:5px 12px;border-radius:999px;
+    text-transform:capitalize;
+    white-space:nowrap;
+  }
+  .status-pending{background:#FCF1DD;color:#9A6B14;}
+  .status-approved{background:#E4F5EA;color:#2E7D4F;}
+  .status-declined{background:#FAEAE6;color:#C24A3B;}
+  .empty-state{
+    text-align:center;
+    padding:40px 20px;
+    color:var(--muted);
+    font-size:14.5px;
+    border:1px dashed var(--line);
+    border-radius:12px;
+  }
 
   #loading{
     text-align:center;padding:120px 32px;color:var(--muted);font-size:15px;
@@ -102,14 +200,81 @@
       <div class="label">Signed in as</div>
       <div class="value" id="user-email">—</div>
     </div>
+
+    <div class="form-card">
+      <div class="section-title">Submit a credit application</div>
+      <div class="section-sub">Fill this out with your customer's information to start the approval process.</div>
+
+      <form id="application-form">
+        <div class="form-grid">
+          <div class="field">
+            <label for="cust-name">Customer full name</label>
+            <input type="text" id="cust-name" required>
+          </div>
+          <div class="field">
+            <label for="cust-email">Customer email</label>
+            <input type="email" id="cust-email" required>
+          </div>
+          <div class="field">
+            <label for="cust-phone">Customer phone</label>
+            <input type="tel" id="cust-phone" required>
+          </div>
+          <div class="field">
+            <label for="amount">Requested amount ($)</label>
+            <input type="number" id="amount" min="1" step="1" required>
+          </div>
+          <div class="field">
+            <label for="industry">Industry</label>
+            <select id="industry" required>
+              <option value="">Select…</option>
+              <option>Jewelry &amp; Watches</option>
+              <option>Dental &amp; Orthodontics</option>
+              <option>Furniture &amp; Home</option>
+              <option>Auto Repair &amp; Service</option>
+              <option>Medical &amp; Aesthetics</option>
+              <option>Home Improvement</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="item">Item / service description</label>
+            <input type="text" id="item" placeholder="e.g. Engagement ring" required>
+          </div>
+          <div class="field full">
+            <label for="notes">Notes (optional)</label>
+            <textarea id="notes" placeholder="Anything else worth noting about this application"></textarea>
+          </div>
+        </div>
+        <div class="form-actions">
+          <button type="submit" class="btn-submit" id="submit-btn">Submit application</button>
+          <span id="form-msg"></span>
+        </div>
+      </form>
+    </div>
+
+    <div class="section-title">Your applications</div>
+    <div class="section-sub">Applications you've submitted, most recent first.</div>
+    <div class="app-list" id="app-list">
+      <div class="empty-state">No applications submitted yet.</div>
+    </div>
   </main>
 </div>
 
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
   import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+  import {
+    getFirestore,
+    collection,
+    addDoc,
+    query,
+    where,
+    orderBy,
+    onSnapshot,
+    serverTimestamp
+  } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-  // ⚠️ Use the SAME config as signin.html
+  // Use the SAME config as signin.html
   const firebaseConfig = {
     apiKey: "AIzaSyDGGVJMrbc4mYEQpdKUCi3mrRcFHJJERHA",
     authDomain: "dealflowfinance.firebaseapp.com",
@@ -121,24 +286,109 @@
 
   const app = initializeApp(firebaseConfig);
   const auth = getAuth(app);
+  const db = getFirestore(app);
 
   const loadingEl = document.getElementById("loading");
   const appEl = document.getElementById("app");
   const emailEl = document.getElementById("user-email");
   const welcomeEl = document.getElementById("welcome-text");
+  const formEl = document.getElementById("application-form");
+  const submitBtn = document.getElementById("submit-btn");
+  const formMsg = document.getElementById("form-msg");
+  const appListEl = document.getElementById("app-list");
+
+  let currentUser = null;
+  let unsubscribeApps = null;
 
   onAuthStateChanged(auth, (user) => {
     if (!user) {
       window.location.href = "signin.html";
       return;
     }
+    currentUser = user;
     emailEl.textContent = user.email;
     welcomeEl.textContent = "You're signed in as " + user.email + ".";
     loadingEl.style.display = "none";
     appEl.style.display = "block";
+
+    const q = query(
+      collection(db, "applications"),
+      where("merchantUid", "==", user.uid),
+      orderBy("createdAt", "desc")
+    );
+
+    unsubscribeApps = onSnapshot(q, (snapshot) => {
+      if (snapshot.empty) {
+        appListEl.innerHTML = '<div class="empty-state">No applications submitted yet.</div>';
+        return;
+      }
+      appListEl.innerHTML = "";
+      snapshot.forEach((doc) => {
+        const d = doc.data();
+        const status = d.status || "pending";
+        const row = document.createElement("div");
+        row.className = "app-row";
+        row.innerHTML = `
+          <div>
+            <div class="who">${escapeHtml(d.customerName || "—")}</div>
+            <div class="meta">${escapeHtml(d.item || "")} · $${Number(d.amount || 0).toLocaleString()} · ${escapeHtml(d.industry || "")}</div>
+          </div>
+          <span class="status-pill status-${status}">${status}</span>
+        `;
+        appListEl.appendChild(row);
+      });
+    }, (err) => {
+      console.error(err);
+      appListEl.innerHTML = '<div class="empty-state">Could not load applications.</div>';
+    });
+  });
+
+  function escapeHtml(str) {
+    const div = document.createElement("div");
+    div.textContent = str;
+    return div.innerHTML;
+  }
+
+  formEl.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    if (!currentUser) return;
+
+    formMsg.textContent = "";
+    formMsg.className = "";
+    submitBtn.disabled = true;
+    submitBtn.textContent = "Submitting…";
+
+    const data = {
+      merchantUid: currentUser.uid,
+      merchantEmail: currentUser.email,
+      customerName: document.getElementById("cust-name").value.trim(),
+      customerEmail: document.getElementById("cust-email").value.trim(),
+      customerPhone: document.getElementById("cust-phone").value.trim(),
+      amount: Number(document.getElementById("amount").value),
+      industry: document.getElementById("industry").value,
+      item: document.getElementById("item").value.trim(),
+      notes: document.getElementById("notes").value.trim(),
+      status: "pending",
+      createdAt: serverTimestamp()
+    };
+
+    try {
+      await addDoc(collection(db, "applications"), data);
+      formMsg.textContent = "Application submitted successfully.";
+      formMsg.className = "success";
+      formEl.reset();
+    } catch (err) {
+      console.error(err);
+      formMsg.textContent = "Something went wrong submitting this application. Please try again.";
+      formMsg.className = "error";
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.textContent = "Submit application";
+    }
   });
 
   document.getElementById("signout-btn").addEventListener("click", async () => {
+    if (unsubscribeApps) unsubscribeApps();
     await signOut(auth);
     window.location.href = "signin.html";
   });
