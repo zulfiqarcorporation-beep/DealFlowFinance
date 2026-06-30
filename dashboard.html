@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard — DealFlow Finance</title>
+<style>
+  :root{
+    --cream:#F8F5EE;
+    --navy:#0E1830;
+    --navy-soft:#1B2440;
+    --amber:#E2A33F;
+    --amber-light:#F3C57A;
+    --ink:#171717;
+    --muted:#6B6F78;
+    --line:#E6E1D3;
+    --white:#FFFFFF;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{
+    font-family:-apple-system,'Helvetica Neue',Arial,sans-serif;
+    background:var(--cream);
+    color:var(--ink);
+    -webkit-font-smoothing:antialiased;
+    min-height:100vh;
+  }
+  h1,h2{font-family:'Times New Roman',Georgia,serif;font-weight:400;line-height:1.04;}
+  a{text-decoration:none;color:inherit;}
+
+  header{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:20px 32px;
+    max-width:1180px;margin:0 auto;
+  }
+  .logo{display:flex;align-items:center;gap:10px;font-weight:600;font-size:18px;}
+  .logo-mark{
+    width:30px;height:30px;border-radius:7px;
+    background:var(--navy);color:var(--white);
+    display:flex;align-items:center;justify-content:center;
+    font-family:Georgia,serif;font-weight:700;font-size:15px;
+  }
+  .btn-light{
+    background:var(--white);color:var(--ink);
+    padding:10px 20px;border-radius:8px;
+    font-size:14px;font-weight:500;
+    border:1px solid var(--line);
+    cursor:pointer;
+    transition:border-color .2s ease;
+  }
+  .btn-light:hover{border-color:#c9c2ad;}
+
+  main{
+    max-width:760px;margin:0 auto;
+    padding:70px 32px 100px;
+  }
+  .badge{
+    display:inline-flex;align-items:center;gap:8px;
+    border:1px solid var(--line);
+    background:var(--white);
+    padding:8px 16px;border-radius:999px;
+    font-size:13.5px;color:#3a3d44;
+    margin-bottom:22px;
+  }
+  .badge .dot{color:var(--amber);font-size:14px;}
+  main h1{font-size:38px;color:#111;margin-bottom:10px;}
+  main p.sub{font-size:16px;color:var(--muted);margin-bottom:36px;}
+
+  .card{
+    background:var(--white);
+    border:1px solid var(--line);
+    border-radius:14px;
+    padding:26px 28px;
+    box-shadow:0 18px 40px -28px rgba(16,24,43,.18);
+  }
+  .card .label{font-size:12.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:6px;}
+  .card .value{font-family:'Times New Roman',Georgia,serif;font-size:22px;color:var(--navy);}
+
+  #loading{
+    text-align:center;padding:120px 32px;color:var(--muted);font-size:15px;
+  }
+</style>
+</head>
+<body>
+
+<div id="loading">Checking your session…</div>
+
+<div id="app" style="display:none;">
+  <header>
+    <div class="logo">
+      <div class="logo-mark">D</div>
+      DealFlow Finance
+    </div>
+    <button class="btn-light" id="signout-btn">Sign out</button>
+  </header>
+
+  <main>
+    <div class="badge"><span class="dot">✦</span> Merchant dashboard</div>
+    <h1>Welcome back</h1>
+    <p class="sub" id="welcome-text">You're signed in.</p>
+
+    <div class="card">
+      <div class="label">Signed in as</div>
+      <div class="value" id="user-email">—</div>
+    </div>
+  </main>
+</div>
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+  import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+  // ⚠️ Use the SAME config as signin.html
+  const firebaseConfig = {
+    apiKey: "AIzaSyDGGVJMrbc4mYEQpdKUCi3mrRcFHJJERHA",
+    authDomain: "dealflowfinance.firebaseapp.com",
+    projectId: "dealflowfinance",
+    storageBucket: "dealflowfinance.firebasestorage.app",
+    messagingSenderId: "66378210078",
+    appId: "1:66378210078:web:0265c5d7929f3a713fc70f"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+
+  const loadingEl = document.getElementById("loading");
+  const appEl = document.getElementById("app");
+  const emailEl = document.getElementById("user-email");
+  const welcomeEl = document.getElementById("welcome-text");
+
+  onAuthStateChanged(auth, (user) => {
+    if (!user) {
+      window.location.href = "signin.html";
+      return;
+    }
+    emailEl.textContent = user.email;
+    welcomeEl.textContent = "You're signed in as " + user.email + ".";
+    loadingEl.style.display = "none";
+    appEl.style.display = "block";
+  });
+
+  document.getElementById("signout-btn").addEventListener("click", async () => {
+    await signOut(auth);
+    window.location.href = "signin.html";
+  });
+</script>
+
+</body>
+</html>

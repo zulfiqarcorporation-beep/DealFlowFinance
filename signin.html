@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sign in — DealFlow Finance</title>
+<style>
+  :root{
+    --cream:#F8F5EE;
+    --navy:#0E1830;
+    --navy-soft:#1B2440;
+    --amber:#E2A33F;
+    --amber-light:#F3C57A;
+    --ink:#171717;
+    --muted:#6B6F78;
+    --line:#E6E1D3;
+    --white:#FFFFFF;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{
+    font-family:-apple-system,'Helvetica Neue',Arial,sans-serif;
+    background:var(--cream);
+    color:var(--ink);
+    -webkit-font-smoothing:antialiased;
+    min-height:100vh;
+  }
+  h1,h2,h3{
+    font-family:'Times New Roman',Georgia,serif;
+    font-weight:400;
+    line-height:1.04;
+  }
+  a{text-decoration:none;color:inherit;}
+
+  /* Header */
+  header{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:20px 32px;
+    max-width:1180px;margin:0 auto;
+  }
+  .logo{display:flex;align-items:center;gap:10px;font-weight:600;font-size:18px;}
+  .logo-mark{
+    width:30px;height:30px;border-radius:7px;
+    background:var(--navy);color:var(--white);
+    display:flex;align-items:center;justify-content:center;
+    font-family:Georgia,serif;font-weight:700;font-size:15px;
+  }
+  nav{display:flex;gap:34px;font-size:14.5px;color:var(--ink);font-weight:450;}
+  nav a:hover{color:var(--amber);}
+  .header-right{display:flex;align-items:center;gap:22px;font-size:14.5px;}
+  .btn-dark{
+    background:var(--navy);color:var(--white);
+    padding:11px 20px;border-radius:8px;
+    font-size:14.5px;font-weight:500;
+    display:inline-flex;align-items:center;gap:8px;
+    transition:background .2s ease;
+    border:none;cursor:pointer;
+  }
+  .btn-dark:hover{background:var(--navy-soft);}
+
+  /* Sign in section */
+  .signin-wrap{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:60px 24px 90px;
+  }
+  .signin-card{
+    width:100%;
+    max-width:420px;
+    background:var(--white);
+    border:1px solid var(--line);
+    border-radius:16px;
+    padding:40px 36px 36px;
+    box-shadow:0 30px 60px -30px rgba(16,24,43,.18);
+  }
+  .signin-badge{
+    display:inline-flex;align-items:center;gap:8px;
+    border:1px solid var(--line);
+    background:var(--cream);
+    padding:7px 14px;border-radius:999px;
+    font-size:12.5px;color:#3a3d44;
+    margin-bottom:22px;
+  }
+  .signin-badge .dot{color:var(--amber);font-size:13px;}
+  .signin-card h1{
+    font-size:32px;
+    font-weight:500;
+    color:#111111;
+    letter-spacing:-0.3px;
+    margin-bottom:8px;
+  }
+  .signin-card p.sub{
+    font-size:14.5px;
+    color:var(--muted);
+    line-height:1.5;
+    margin-bottom:30px;
+  }
+  .field{margin-bottom:18px;}
+  .field label{
+    display:block;
+    font-size:13px;
+    font-weight:600;
+    color:var(--ink);
+    margin-bottom:7px;
+  }
+  .field input{
+    width:100%;
+    padding:12px 14px;
+    border:1px solid var(--line);
+    border-radius:9px;
+    background:var(--cream);
+    font-size:14.5px;
+    color:var(--ink);
+    font-family:inherit;
+    transition:border-color .2s ease, background .2s ease;
+  }
+  .field input::placeholder{color:#9c9fa6;}
+  .field input:focus{
+    outline:none;
+    border-color:var(--amber);
+    background:var(--white);
+  }
+  .row-between{
+    display:flex;align-items:center;justify-content:space-between;
+    margin-bottom:24px;
+    font-size:13.5px;
+  }
+  .remember{display:flex;align-items:center;gap:8px;color:var(--muted);}
+  .remember input{accent-color:var(--navy);}
+  .forgot{color:var(--navy);font-weight:500;}
+  .forgot:hover{color:var(--amber);}
+
+  .btn-submit{
+    width:100%;
+    background:var(--navy);
+    color:var(--white);
+    border:none;
+    padding:13px 0;
+    border-radius:9px;
+    font-size:15px;
+    font-weight:500;
+    cursor:pointer;
+    display:flex;align-items:center;justify-content:center;gap:8px;
+    transition:background .2s ease;
+  }
+  .btn-submit:hover{background:var(--navy-soft);}
+
+  .divider{
+    display:flex;align-items:center;gap:14px;
+    margin:26px 0;
+    color:var(--muted);
+    font-size:12.5px;
+  }
+  .divider::before,.divider::after{
+    content:"";flex:1;height:1px;background:var(--line);
+  }
+
+  .btn-google{
+    width:100%;
+    background:var(--white);
+    border:1px solid var(--line);
+    padding:11px 0;
+    border-radius:9px;
+    font-size:14.5px;
+    font-weight:500;
+    color:var(--ink);
+    cursor:pointer;
+    display:flex;align-items:center;justify-content:center;gap:10px;
+    transition:border-color .2s ease;
+  }
+  .btn-google:hover{border-color:#c9c2ad;}
+
+  .signup-line{
+    text-align:center;
+    margin-top:28px;
+    font-size:14px;
+    color:var(--muted);
+  }
+  .signup-line a{color:var(--navy);font-weight:600;}
+  .signup-line a:hover{color:var(--amber);}
+
+  .approved-strip{
+    display:flex;align-items:center;justify-content:center;gap:8px;
+    margin-top:26px;
+    font-size:12.5px;
+    color:var(--muted);
+  }
+  .check{
+    width:15px;height:15px;border-radius:50%;
+    background:var(--amber-light);
+    display:inline-flex;align-items:center;justify-content:center;
+    font-size:9px;color:var(--navy);
+  }
+
+  @media (max-width:900px){
+    nav{display:none;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">
+    <div class="logo-mark">D</div>
+    DealFlow Finance
+  </div>
+  <nav>
+    <a href="index.html#how-it-works">How it works</a>
+    <a href="index.html#industries">Industries</a>
+    <a href="index.html#pricing">Pricing</a>
+    <a href="index.html#contact">Contact</a>
+  </nav>
+  <div class="header-right">
+    <a href="signin.html">Sign in</a>
+    <a href="index.html" class="btn-dark">Get started</a>
+  </div>
+</header>
+
+<section class="signin-wrap">
+  <div class="signin-card">
+    <div class="signin-badge"><span class="dot">✦</span> Merchant &amp; partner login</div>
+    <h1>Welcome back</h1>
+    <p class="sub">Sign in to manage applications, track funding, and view payouts.</p>
+
+    <form id="auth-form">
+      <div class="field">
+        <label for="email">Email address</label>
+        <input type="email" id="email" name="email" placeholder="you@business.com" required>
+      </div>
+      <div class="field">
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" placeholder="Enter your password" required minlength="6">
+      </div>
+      <div class="row-between">
+        <label class="remember">
+          <input type="checkbox" id="remember" name="remember">
+          Remember me
+        </label>
+        <a href="#" class="forgot" id="forgot-link">Forgot password?</a>
+      </div>
+      <p id="auth-error" style="display:none;color:#C24A3B;font-size:13px;margin-bottom:14px;"></p>
+      <p id="auth-success" style="display:none;color:#2E7D4F;font-size:13px;margin-bottom:14px;"></p>
+      <button type="submit" class="btn-submit" id="submit-btn">Sign in →</button>
+    </form>
+
+    <p class="signup-line" id="toggle-line">Don't have an account? <a href="#" id="toggle-mode">Create one</a></p>
+
+    <div class="approved-strip">
+      <span class="check">✓</span> Secure sign-in
+    </div>
+  </div>
+</section>
+
+<!-- Firebase -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+  import {
+    getAuth,
+    createUserWithEmailAndPassword,
+    signInWithEmailAndPassword,
+    sendPasswordResetEmail,
+    setPersistence,
+    browserLocalPersistence,
+    browserSessionPersistence,
+    onAuthStateChanged
+  } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+  // ⚠️ Replace this with YOUR Firebase project's config
+  // (Firebase console → Project settings → General → Your apps → SDK setup and config)
+  const firebaseConfig = {
+    apiKey: "AIzaSyDGGVJMrbc4mYEQpdKUCi3mrRcFHJJERHA",
+    authDomain: "dealflowfinance.firebaseapp.com",
+    projectId: "dealflowfinance",
+    storageBucket: "dealflowfinance.firebasestorage.app",
+    messagingSenderId: "66378210078",
+    appId: "1:66378210078:web:0265c5d7929f3a713fc70f"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+
+  const form = document.getElementById("auth-form");
+  const emailInput = document.getElementById("email");
+  const passwordInput = document.getElementById("password");
+  const rememberInput = document.getElementById("remember");
+  const errorEl = document.getElementById("auth-error");
+  const successEl = document.getElementById("auth-success");
+  const submitBtn = document.getElementById("submit-btn");
+  const toggleModeLink = document.getElementById("toggle-mode");
+  const toggleLine = document.getElementById("toggle-line");
+  const forgotLink = document.getElementById("forgot-link");
+  const heading = document.querySelector(".signin-card h1");
+  const subtext = document.querySelector(".signin-card p.sub");
+
+  let mode = "signin"; // or "signup"
+
+  function showError(message) {
+    successEl.style.display = "none";
+    errorEl.textContent = message;
+    errorEl.style.display = "block";
+  }
+
+  function showSuccess(message) {
+    errorEl.style.display = "none";
+    successEl.textContent = message;
+    successEl.style.display = "block";
+  }
+
+  function clearMessages() {
+    errorEl.style.display = "none";
+    successEl.style.display = "none";
+  }
+
+  function handleToggleClick(e) {
+    e.preventDefault();
+    clearMessages();
+    if (mode === "signin") {
+      mode = "signup";
+      heading.textContent = "Create an account";
+      subtext.textContent = "Set up access to manage applications, track funding, and view payouts.";
+      submitBtn.textContent = "Create account →";
+      toggleLine.innerHTML = 'Already have an account? <a href="#" id="toggle-mode">Sign in</a>';
+    } else {
+      mode = "signin";
+      heading.textContent = "Welcome back";
+      subtext.textContent = "Sign in to manage applications, track funding, and view payouts.";
+      submitBtn.textContent = "Sign in →";
+      toggleLine.innerHTML = 'Don\'t have an account? <a href="#" id="toggle-mode">Create one</a>';
+    }
+    document.getElementById("toggle-mode").addEventListener("click", handleToggleClick);
+  }
+
+  toggleModeLink.addEventListener("click", handleToggleClick);
+
+  forgotLink.addEventListener("click", async (e) => {
+    e.preventDefault();
+    clearMessages();
+    const email = emailInput.value.trim();
+    if (!email) {
+      showError("Enter your email above first, then click \"Forgot password?\"");
+      return;
+    }
+    try {
+      await sendPasswordResetEmail(auth, email);
+      showSuccess("Password reset email sent. Check your inbox.");
+    } catch (err) {
+      showError(friendlyError(err));
+    }
+  });
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    clearMessages();
+    const email = emailInput.value.trim();
+    const password = passwordInput.value;
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = mode === "signin" ? "Signing in…" : "Creating account…";
+
+    try {
+      await setPersistence(
+        auth,
+        rememberInput.checked ? browserLocalPersistence : browserSessionPersistence
+      );
+
+      if (mode === "signin") {
+        await signInWithEmailAndPassword(auth, email, password);
+      } else {
+        await createUserWithEmailAndPassword(auth, email, password);
+      }
+      window.location.href = "dashboard.html";
+    } catch (err) {
+      showError(friendlyError(err));
+      submitBtn.disabled = false;
+      submitBtn.textContent = mode === "signin" ? "Sign in →" : "Create account →";
+    }
+  });
+
+  function friendlyError(err) {
+    const code = err.code || "";
+    if (code.includes("invalid-credential") || code.includes("wrong-password")) return "Incorrect email or password.";
+    if (code.includes("user-not-found")) return "No account found with that email.";
+    if (code.includes("email-already-in-use")) return "An account already exists with that email.";
+    if (code.includes("weak-password")) return "Password should be at least 6 characters.";
+    if (code.includes("invalid-email")) return "That email address looks invalid.";
+    return "Something went wrong. Please try again.";
+  }
+
+  // If already signed in, skip straight to the dashboard
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      window.location.href = "dashboard.html";
+    }
+  });
+</script>
+
+</body>
+</html>
