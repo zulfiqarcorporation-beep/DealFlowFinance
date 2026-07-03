@@ -269,7 +269,6 @@
     addDoc,
     query,
     where,
-    orderBy,
     onSnapshot,
     serverTimestamp
   } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
@@ -313,8 +312,7 @@
 
     const q = query(
       collection(db, "applications"),
-      where("merchantUid", "==", user.uid),
-      orderBy("createdAt", "desc")
+      where("merchantUid", "==", user.uid)
     );
 
     unsubscribeApps = onSnapshot(q, (snapshot) => {
@@ -322,9 +320,17 @@
         appListEl.innerHTML = '<div class="empty-state">No applications submitted yet.</div>';
         return;
       }
+      // Sort client-side by createdAt descending
+      const docs = snapshot.docs
+        .map(doc => ({ id: doc.id, ...doc.data() }))
+        .sort((a, b) => {
+          const aTime = a.createdAt?.toMillis ? a.createdAt.toMillis() : 0;
+          const bTime = b.createdAt?.toMillis ? b.createdAt.toMillis() : 0;
+          return bTime - aTime;
+        });
+
       appListEl.innerHTML = "";
-      snapshot.forEach((doc) => {
-        const d = doc.data();
+      docs.forEach((d) => {
         const status = d.status || "pending";
         const row = document.createElement("div");
         row.className = "app-row";
