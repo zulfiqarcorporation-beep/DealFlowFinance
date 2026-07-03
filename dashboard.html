@@ -299,9 +299,16 @@
   let currentUser = null;
   let unsubscribeApps = null;
 
+  const ADMIN_UID = "lGa0jHbaOiPyNQkpnEDV1ViFGI82";
+
   onAuthStateChanged(auth, (user) => {
     if (!user) {
       window.location.href = "signin.html";
+      return;
+    }
+    // If admin, go straight to admin panel
+    if (user.uid === ADMIN_UID) {
+      window.location.href = "admin.html";
       return;
     }
     currentUser = user;
