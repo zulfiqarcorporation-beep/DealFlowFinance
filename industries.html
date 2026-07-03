@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Industries — DealFlow Finance</title>
+<style>
+  :root{
+    --cream:#F8F5EE;
+    --navy:#0E1830;
+    --navy-soft:#1B2440;
+    --amber:#E2A33F;
+    --amber-light:#F3C57A;
+    --ink:#171717;
+    --muted:#6B6F78;
+    --line:#E6E1D3;
+    --white:#FFFFFF;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{
+    font-family:-apple-system,'Helvetica Neue',Arial,sans-serif;
+    background:var(--cream);
+    color:var(--ink);
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3{
+    font-family:'Times New Roman',Georgia,serif;
+    font-weight:400;
+    line-height:1.04;
+  }
+  a{text-decoration:none;color:inherit;}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 32px;}
+
+  header{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:20px 32px;
+    max-width:1180px;margin:0 auto;
+  }
+  .logo{display:flex;align-items:center;gap:10px;font-weight:600;font-size:18px;}
+  .logo-mark{
+    width:30px;height:30px;border-radius:7px;
+    background:var(--navy);color:var(--white);
+    display:flex;align-items:center;justify-content:center;
+    font-family:Georgia,serif;font-weight:700;font-size:15px;
+  }
+  nav{display:flex;gap:34px;font-size:14.5px;color:var(--ink);font-weight:450;}
+  nav a:hover{color:var(--amber);}
+  nav a.active{color:var(--amber);}
+  .header-right{display:flex;align-items:center;gap:22px;font-size:14.5px;}
+  .btn-dark{
+    background:var(--navy);color:var(--white);
+    padding:11px 20px;border-radius:8px;
+    font-size:14.5px;font-weight:500;
+    display:inline-flex;align-items:center;gap:8px;
+    transition:background .2s ease;
+    border:none;cursor:pointer;
+  }
+  .btn-dark:hover{background:var(--navy-soft);}
+
+  .hero{padding:64px 32px 30px;max-width:1180px;margin:0 auto;text-align:center;}
+  .badge{
+    display:inline-flex;align-items:center;gap:8px;
+    border:1px solid var(--line);
+    background:var(--white);
+    padding:8px 16px;border-radius:999px;
+    font-size:13.5px;color:#3a3d44;
+    margin-bottom:26px;
+  }
+  .badge .dot{color:var(--amber);font-size:14px;}
+  .hero h1{
+    font-size:50px;
+    font-weight:500;
+    color:#111111;
+    letter-spacing:-0.5px;
+    max-width:760px;
+    margin:0 auto;
+  }
+  .hero h1 .accent{color:var(--amber);font-style:italic;font-weight:500;}
+  .hero p.sub{
+    margin:22px auto 0;
+    font-size:17px;
+    line-height:1.6;
+    color:var(--muted);
+    max-width:560px;
+  }
+
+  .industries-grid{
+    max-width:1180px;margin:56px auto 0;
+    padding:0 32px 80px;
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:26px;
+  }
+  .industry-card{
+    background:var(--white);
+    border:1px solid var(--line);
+    border-radius:16px;
+    padding:30px 28px;
+    transition:box-shadow .2s ease, transform .2s ease;
+  }
+  .industry-card:hover{
+    box-shadow:0 24px 50px -30px rgba(16,24,43,.25);
+    transform:translateY(-2px);
+  }
+  .icon-circle{
+    width:46px;height:46px;border-radius:12px;
+    background:var(--cream);
+    border:1px solid var(--line);
+    display:flex;align-items:center;justify-content:center;
+    font-size:21px;
+    margin-bottom:18px;
+  }
+  .industry-card h3{
+    font-size:20px;font-weight:500;color:#111;
+    margin-bottom:10px;
+  }
+  .industry-card p{
+    font-size:14.5px;line-height:1.6;color:var(--muted);
+    margin-bottom:16px;
+  }
+  .industry-card .stat{
+    font-size:13px;color:var(--navy);font-weight:600;
+    display:flex;align-items:center;gap:6px;
+  }
+  .industry-card .stat .swatch{color:var(--amber);}
+
+  .cta-band{
+    border-top:1px solid var(--line);
+    padding:64px 32px;
+    text-align:center;
+  }
+  .cta-band h2{
+    font-size:34px;font-weight:500;color:#111;
+    margin-bottom:14px;
+  }
+  .cta-band p{
+    font-size:15.5px;color:var(--muted);
+    margin-bottom:28px;
+  }
+  .cta-row{display:flex;gap:14px;justify-content:center;}
+  .btn-light{
+    background:var(--white);color:var(--ink);
+    padding:11px 22px;border-radius:8px;
+    font-size:14.5px;font-weight:500;
+    border:1px solid var(--line);
+  }
+
+  @media (max-width:900px){
+    nav{display:none;}
+    .hero h1{font-size:34px;}
+    .industries-grid{grid-template-columns:1fr;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <a href="index.html" class="logo" style="text-decoration:none;color:inherit;">
+    <div class="logo-mark">D</div>
+    DealFlow Finance
+  </a>
+  <nav>
+    <a href="how-it-works.html">How it works</a>
+    <a href="industries.html" class="active">Industries</a>
+    <a href="index.html#pricing">Pricing</a>
+    <a href="index.html#contact">Contact</a>
+  </nav>
+  <div class="header-right">
+    <a href="signin.html">Sign in</a>
+    <a href="index.html" class="btn-dark">Get started</a>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="badge"><span class="dot">✦</span> Built for high-ticket retail</div>
+  <h1>Financing for every business that sells <span class="accent">big-ticket items</span>.</h1>
+  <p class="sub">From jewelry counters to dental chairs, DealFlow Finance plugs into your checkout so customers can say yes to the price tag — not walk away from it.</p>
+</section>
+
+<section class="industries-grid">
+
+  <div class="industry-card">
+    <div class="icon-circle">💍</div>
+    <h3>Jewelry &amp; Watches</h3>
+    <p>Turn a $10,000 ring into a $129/month decision. Approvals in under a minute, right at the counter.</p>
+    <div class="stat"><span class="swatch">↑</span> 38% avg. ticket size increase</div>
+  </div>
+
+  <div class="industry-card">
+    <div class="icon-circle">🦷</div>
+    <h3>Dental &amp; Orthodontics</h3>
+    <p>Offer patients flexible payment plans for procedures insurance doesn't fully cover.</p>
+    <div class="stat"><span class="swatch">↑</span> 2.4x case acceptance rate</div>
+  </div>
+
+  <div class="industry-card">
+    <div class="icon-circle">🛋️</div>
+    <h3>Furniture &amp; Home</h3>
+    <p>From sofas to full home remodels, let customers furnish now and pay over time.</p>
+    <div class="stat"><span class="swatch">↑</span> 31% fewer abandoned carts</div>
+  </div>
+
+  <div class="industry-card">
+    <div class="icon-circle">🚗</div>
+    <h3>Auto Repair &amp; Service</h3>
+    <p>Cover unexpected repair bills so customers don't have to delay essential work.</p>
+    <div class="stat"><span class="swatch">↑</span> Same-day approval, 24hr funding</div>
+  </div>
+
+  <div class="industry-card">
+    <div class="icon-circle">💆</div>
+    <h3>Medical &amp; Aesthetics</h3>
+    <p>Make elective procedures accessible with transparent monthly pricing at checkout.</p>
+    <div class="stat"><span class="swatch">↑</span> 45% more consult conversions</div>
+  </div>
+
+  <div class="industry-card">
+    <div class="icon-circle">🏠</div>
+    <h3>Home Improvement</h3>
+    <p>Finance roofing, HVAC, windows, and renovation projects without the upfront sticker shock.</p>
+    <div class="stat"><span class="swatch">↑</span> $2.4B+ funded to date</div>
+  </div>
+
+</section>
+
+<section class="cta-band">
+  <h2>Don't see your industry?</h2>
+  <p>DealFlow Finance works with merchants across nearly every high-ticket category.</p>
+  <div class="cta-row">
+    <a href="index.html" class="btn-dark">Get started →</a>
+    <a href="index.html#contact" class="btn-light">Talk to us</a>
+  </div>
+</section>
+
+</body>
+</html>
