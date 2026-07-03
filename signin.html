@@ -348,6 +348,16 @@
     }
   });
 
+  const ADMIN_UID = "lGa0jHbaOiPyNQkpnEDV1ViFGI82";
+
+  function redirectUser(user) {
+    if (user.uid === ADMIN_UID) {
+      window.location.href = "admin.html";
+    } else {
+      window.location.href = "dashboard.html";
+    }
+  }
+
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
     clearMessages();
@@ -363,12 +373,13 @@
         rememberInput.checked ? browserLocalPersistence : browserSessionPersistence
       );
 
+      let cred;
       if (mode === "signin") {
-        await signInWithEmailAndPassword(auth, email, password);
+        cred = await signInWithEmailAndPassword(auth, email, password);
       } else {
-        await createUserWithEmailAndPassword(auth, email, password);
+        cred = await createUserWithEmailAndPassword(auth, email, password);
       }
-      window.location.href = "dashboard.html";
+      redirectUser(cred.user);
     } catch (err) {
       showError(friendlyError(err));
       submitBtn.disabled = false;
@@ -386,10 +397,10 @@
     return "Something went wrong. Please try again.";
   }
 
-  // If already signed in, skip straight to the dashboard
+  // If already signed in, redirect appropriately
   onAuthStateChanged(auth, (user) => {
     if (user) {
-      window.location.href = "dashboard.html";
+      redirectUser(user);
     }
   });
 </script>
