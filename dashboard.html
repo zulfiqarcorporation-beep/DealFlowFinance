@@ -183,11 +183,24 @@
 <div id="loading">Checking your session…</div>
 
 <div id="app" style="display:none;">
+
+  <!-- Company name modal shown once on first login -->
+  <div id="company-modal" style="display:none;position:fixed;inset:0;background:rgba(14,24,48,.45);z-index:1000;display:none;align-items:center;justify-content:center;">
+    <div style="background:#fff;border-radius:16px;padding:36px;max-width:400px;width:90%;box-shadow:0 40px 80px -20px rgba(14,24,48,.35);">
+      <div style="font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:#E2A33F;font-weight:700;margin-bottom:10px;">Welcome to DealFlow</div>
+      <h2 style="font-family:'Times New Roman',Georgia,serif;font-size:26px;font-weight:500;color:#111;margin-bottom:8px;">What's your business name?</h2>
+      <p style="font-size:14px;color:#6B6F78;margin-bottom:22px;line-height:1.5;">We'll use this to identify your account. You only need to do this once.</p>
+      <input type="text" id="company-input" placeholder="e.g. Zulfiqar Jewellers" style="width:100%;padding:11px 13px;border:1px solid #E6E1D3;border-radius:9px;background:#F8F5EE;font-size:14.5px;font-family:inherit;margin-bottom:16px;">
+      <p id="company-error" style="display:none;color:#C24A3B;font-size:13px;margin-bottom:12px;"></p>
+      <button id="company-submit" style="width:100%;background:#0E1830;color:#fff;border:none;padding:13px;border-radius:9px;font-size:14.5px;font-weight:500;cursor:pointer;">Save and continue →</button>
+    </div>
+  </div>
+
   <header>
-    <div class="logo">
+    <a href="index.html" class="logo" style="text-decoration:none;color:inherit;">
       <div class="logo-mark">D</div>
       DealFlow Finance
-    </div>
+    </a>
     <button class="btn-light" id="signout-btn">Sign out</button>
   </header>
 
@@ -270,7 +283,10 @@
     query,
     where,
     onSnapshot,
-    serverTimestamp
+    serverTimestamp,
+    doc,
+    getDoc,
+    setDoc
   } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
   // Use the SAME config as signin.html
@@ -314,6 +330,42 @@
     currentUser = user;
     emailEl.textContent = user.email;
     welcomeEl.textContent = "You're signed in as " + user.email + ".";
+    loadingEl.style.display = "none";
+    appEl.style.display = "block";
+
+    // Check if merchant has set their company name
+    const merchantRef = doc(db, "merchants", user.uid);
+    getDoc(merchantRef).then((snap) => {
+      if (!snap.exists() || !snap.data().companyName) {
+        // Show company name modal
+        const modal = document.getElementById("company-modal");
+        modal.style.display = "flex";
+        document.getElementById("company-submit").addEventListener("click", async () => {
+          const name = document.getElementById("company-input").value.trim();
+          const errEl = document.getElementById("company-error");
+          if (!name) {
+            errEl.textContent = "Please enter your business name.";
+            errEl.style.display = "block";
+            return;
+          }
+          try {
+            await setDoc(merchantRef, {
+              companyName: name,
+              email: user.email,
+              uid: user.uid,
+              createdAt: serverTimestamp()
+            });
+            modal.style.display = "none";
+            welcomeEl.textContent = "Welcome, " + name + ".";
+          } catch (err) {
+            errEl.textContent = "Could not save. Please try again.";
+            errEl.style.display = "block";
+          }
+        });
+      } else {
+        welcomeEl.textContent = "Welcome back, " + snap.data().companyName + ".";
+      }
+    });
     loadingEl.style.display = "none";
     appEl.style.display = "block";
 
