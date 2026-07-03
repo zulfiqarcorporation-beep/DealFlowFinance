@@ -245,7 +245,6 @@
     getFirestore,
     collection,
     query,
-    orderBy,
     onSnapshot,
     doc,
     updateDoc
@@ -367,9 +366,15 @@
     loadingEl.style.display = "none";
     appEl.style.display = "block";
 
-    const q = query(collection(db, "applications"), orderBy("createdAt", "desc"));
+    const q = query(collection(db, "applications"));
     onSnapshot(q, (snapshot) => {
-      allApplications = snapshot.docs.map(d => ({ id: d.id, ...d.data() }));
+      allApplications = snapshot.docs
+        .map(d => ({ id: d.id, ...d.data() }))
+        .sort((a, b) => {
+          const aTime = a.createdAt?.toMillis ? a.createdAt.toMillis() : 0;
+          const bTime = b.createdAt?.toMillis ? b.createdAt.toMillis() : 0;
+          return bTime - aTime;
+        });
       updateStats(allApplications);
       renderTable();
     }, (err) => {
