@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pricing — DealFlow Finance</title>
+<style>
+  :root{
+    --cream:#F8F5EE;
+    --navy:#0E1830;
+    --navy-soft:#1B2440;
+    --amber:#E2A33F;
+    --amber-light:#F3C57A;
+    --ink:#171717;
+    --muted:#6B6F78;
+    --line:#E6E1D3;
+    --white:#FFFFFF;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{
+    font-family:-apple-system,'Helvetica Neue',Arial,sans-serif;
+    background:var(--cream);
+    color:var(--ink);
+    -webkit-font-smoothing:antialiased;
+    min-height:100vh;
+  }
+  h1,h2,h3{font-family:'Times New Roman',Georgia,serif;font-weight:400;line-height:1.04;}
+  a{text-decoration:none;color:inherit;}
+
+  header{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:20px 32px;max-width:1180px;margin:0 auto;
+  }
+  .logo{display:flex;align-items:center;gap:10px;font-weight:600;font-size:18px;}
+  .logo-mark{
+    width:30px;height:30px;border-radius:7px;
+    background:var(--navy);color:var(--white);
+    display:flex;align-items:center;justify-content:center;
+    font-family:Georgia,serif;font-weight:700;font-size:15px;
+  }
+  nav{display:flex;gap:34px;font-size:14.5px;color:var(--ink);font-weight:450;}
+  nav a:hover{color:var(--amber);}
+  nav a.active{color:var(--amber);}
+  .header-right{display:flex;align-items:center;gap:22px;font-size:14.5px;}
+  .btn-dark{
+    background:var(--navy);color:var(--white);
+    padding:11px 20px;border-radius:8px;font-size:14.5px;font-weight:500;
+    display:inline-flex;align-items:center;gap:8px;
+    transition:background .2s ease;border:none;cursor:pointer;
+  }
+  .btn-dark:hover{background:var(--navy-soft);}
+  .btn-light{
+    background:var(--white);color:var(--ink);
+    padding:11px 22px;border-radius:8px;font-size:14.5px;font-weight:500;
+    border:1px solid var(--line);
+  }
+  .btn-light:hover{border-color:#c9c2ad;}
+
+  /* Hero */
+  .hero{padding:64px 32px 20px;max-width:1180px;margin:0 auto;text-align:center;}
+  .badge{
+    display:inline-flex;align-items:center;gap:8px;
+    border:1px solid var(--line);background:var(--white);
+    padding:8px 16px;border-radius:999px;font-size:13.5px;color:#3a3d44;
+    margin-bottom:26px;
+  }
+  .badge .dot{color:var(--amber);font-size:14px;}
+  .hero h1{font-size:50px;font-weight:500;color:#111;letter-spacing:-0.5px;max-width:700px;margin:0 auto;}
+  .hero h1 .accent{color:var(--amber);font-style:italic;}
+  .hero p.sub{margin:20px auto 0;font-size:17px;line-height:1.6;color:var(--muted);max-width:520px;}
+
+  /* Big zero section */
+  .zero-section{
+    max-width:900px;margin:56px auto 0;padding:0 32px;
+    display:grid;grid-template-columns:1fr 1fr;gap:24px;
+  }
+  .zero-card{
+    background:var(--white);border:1px solid var(--line);
+    border-radius:18px;padding:36px 32px;
+    text-align:center;
+    position:relative;overflow:hidden;
+  }
+  .zero-card.featured{
+    background:var(--navy);border-color:var(--navy);
+  }
+  .zero-card .big-zero{
+    font-family:'Times New Roman',Georgia,serif;
+    font-size:96px;font-weight:400;
+    color:var(--amber);line-height:1;
+    margin-bottom:8px;
+  }
+  .zero-card h3{
+    font-size:22px;font-weight:500;
+    color:#111;margin-bottom:12px;
+  }
+  .zero-card.featured h3{color:var(--white);}
+  .zero-card p{
+    font-size:14.5px;line-height:1.65;color:var(--muted);
+  }
+  .zero-card.featured p{color:rgba(255,255,255,.65);}
+  .zero-card ul{
+    list-style:none;margin-top:22px;text-align:left;
+  }
+  .zero-card li{
+    font-size:14px;color:var(--muted);
+    padding:8px 0 8px 24px;position:relative;
+    border-top:1px solid var(--line);
+  }
+  .zero-card.featured li{
+    color:rgba(255,255,255,.65);
+    border-top-color:rgba(255,255,255,.1);
+  }
+  .zero-card li::before{
+    content:"✓";position:absolute;left:0;
+    color:var(--amber);font-weight:700;
+  }
+
+  /* How we earn section */
+  .how-we-earn{
+    max-width:900px;margin:48px auto 0;padding:0 32px;
+  }
+  .earn-card{
+    background:var(--navy);
+    border-radius:18px;padding:48px;
+    display:grid;grid-template-columns:1fr 1fr;
+    gap:48px;align-items:center;
+  }
+  .earn-card h2{
+    font-size:32px;font-weight:500;color:var(--white);
+    margin-bottom:14px;
+  }
+  .earn-card p{
+    font-size:15px;line-height:1.7;color:rgba(255,255,255,.65);
+  }
+  .earn-card p strong{color:var(--amber-light);}
+  .flow{display:flex;flex-direction:column;gap:0;}
+  .flow-step{
+    display:flex;align-items:flex-start;gap:14px;
+    padding:16px 0;
+    border-bottom:1px solid rgba(255,255,255,.1);
+  }
+  .flow-step:last-child{border-bottom:none;}
+  .flow-num{
+    width:28px;height:28px;border-radius:50%;
+    background:var(--amber);color:var(--navy);
+    display:flex;align-items:center;justify-content:center;
+    font-size:13px;font-weight:700;flex-shrink:0;margin-top:1px;
+  }
+  .flow-step p{font-size:13.5px;color:rgba(255,255,255,.7);line-height:1.5;}
+  .flow-step p strong{color:var(--white);}
+
+  /* CTA */
+  .cta-band{
+    border-top:1px solid var(--line);margin-top:72px;
+    padding:64px 32px;text-align:center;
+  }
+  .cta-band h2{font-size:34px;font-weight:500;color:#111;margin-bottom:12px;}
+  .cta-band p{font-size:15.5px;color:var(--muted);margin-bottom:28px;}
+  .cta-row{display:flex;gap:14px;justify-content:center;}
+
+  @media(max-width:760px){
+    nav{display:none;}
+    .hero h1{font-size:34px;}
+    .zero-section{grid-template-columns:1fr;}
+    .earn-card{grid-template-columns:1fr;padding:32px 24px;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <a href="index.html" class="logo" style="text-decoration:none;color:inherit;">
+    <div class="logo-mark">D</div>
+    DealFlow Finance
+  </a>
+  <nav>
+    <a href="how-it-works.html">How it works</a>
+    <a href="industries.html">Industries</a>
+    <a href="pricing.html" class="active">Pricing</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+  <div class="header-right">
+    <a href="signin.html">Sign in</a>
+    <a href="signin.html" class="btn-dark">Get started</a>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="badge"><span class="dot">✦</span> No fees. Ever.</div>
+  <h1>Free for merchants.<br>Free for <span class="accent">customers.</span></h1>
+  <p class="sub">DealFlow Finance operates on a commission model — we earn from our lender partners, so nobody else pays a thing.</p>
+</section>
+
+<section class="zero-section">
+  <div class="zero-card">
+    <div class="big-zero">$0</div>
+    <h3>For merchants</h3>
+    <p>No setup fees, no monthly costs, no transaction fees. You get paid in full for every sale — we handle everything else.</p>
+    <ul>
+      <li>Free to sign up and get started</li>
+      <li>No hidden charges or monthly fees</li>
+      <li>Full sale amount forwarded to you</li>
+      <li>No risk — we manage the financing</li>
+    </ul>
+  </div>
+  <div class="zero-card featured">
+    <div class="big-zero">$0</div>
+    <h3>For customers</h3>
+    <p>No application fees, no surprise charges. Customers get flexible financing with clear, transparent monthly payments.</p>
+    <ul>
+      <li>Free to apply — no upfront costs</li>
+      <li>Transparent payment plans, no surprises</li>
+      <li>Payments go directly to the lender</li>
+      <li>Flexible terms to fit any budget</li>
+    </ul>
+  </div>
+</section>
+
+<section class="how-we-earn">
+  <div class="earn-card">
+    <div>
+      <h2>So how does DealFlow make money?</h2>
+      <p>We work with a network of <strong>exclusive lending partners</strong> who fund your customers' purchases. When a deal closes, our lender partners pay us a commission — a standard industry arrangement that keeps the entire experience completely <strong>free for merchants and customers alike</strong>.</p>
+      <p style="margin-top:16px;">It's a model that works for everyone. You close more sales. Your customers get the financing they need. Our lenders grow their portfolio. And DealFlow earns a commission for making it all happen.</p>
+    </div>
+    <div class="flow">
+      <div class="flow-step">
+        <div class="flow-num">1</div>
+        <p><strong>Merchant submits application</strong><br>You fill in your customer's details through the portal — free, fast, no paperwork.</p>
+      </div>
+      <div class="flow-step">
+        <div class="flow-num">2</div>
+        <p><strong>Lender approves &amp; funds</strong><br>Our exclusive lender partners review and fund the deal, paying the merchant in full.</p>
+      </div>
+      <div class="flow-step">
+        <div class="flow-num">3</div>
+        <p><strong>Customer repays the lender</strong><br>The customer makes manageable monthly payments directly to the lender.</p>
+      </div>
+      <div class="flow-step">
+        <div class="flow-num">4</div>
+        <p><strong>DealFlow earns a commission</strong><br>The lender pays DealFlow a commission. No cost to you or your customer — ever.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-band">
+  <h2>Ready to start closing more sales?</h2>
+  <p>Sign up free today — no credit card, no commitment.</p>
+  <div class="cta-row">
+    <a href="signin.html" class="btn-dark">Get started →</a>
+    <a href="contact.html" class="btn-light">Talk to us first</a>
+  </div>
+</section>
+
+</body>
+</html>
